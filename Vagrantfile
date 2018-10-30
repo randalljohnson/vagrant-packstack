@@ -7,7 +7,7 @@ Vagrant.configure(2) do |config|
 
   machines = {
     'node1.example.dd'    => { :ip => '10.1.0.10'},
-  #  'node2.example.dd'    => { :ip =>'10.1.0.12'},
+   #'node2.example.dd'    => { :ip =>'10.1.0.12'},
   }
 
   config.hostmanager.enabled = true
@@ -22,12 +22,12 @@ Vagrant.configure(2) do |config|
     config.vm.define hostname do |machine|
       machine.vm.hostname = hostname
       machine.vm.network :private_network, :ip => attrs[:ip]
-      #machine.vm.network "public_network", :bridge => 'eno1', :ip => attrs[:ip]
       machine.vm.synced_folder '.', '/vagrant', disabled: true
 
       machine.vm.provider "virtualbox" do | v |
-        v.memory = "5120"
+        v.memory = "8192"
         v.cpus = "2"
+        v.customize "post-boot", ["controlvm", :id, "nicpromisc2", "allow-all"]
       end
 
     end
