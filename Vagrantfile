@@ -10,7 +10,6 @@ Vagrant.configure(2) do |config|
    #'node2.example.dd'    => { :ip =>'10.1.0.12'},
   }
 
-  config.ssh.insert_key = false
   config.hostmanager.enabled = true
   config.hostmanager.manage_host = true
   config.hostmanager.manage_guest = true
@@ -18,12 +17,13 @@ Vagrant.configure(2) do |config|
   config.hostmanager.include_offline = true
 
   config.ssh.pty = true
+  config.ssh.insert_key = false
 
   machines.each do | hostname, attrs|
     config.vm.define hostname do |machine|
       machine.vm.hostname = hostname
       machine.vm.network :private_network, :ip => attrs[:ip]
-      machine.vm.synced_folder '.', '/vagrant', disabled: true
+      machine.vm.synced_folder '.', '/vagrant'
 
       machine.vm.provider "virtualbox" do | v |
         v.memory = "8192"
