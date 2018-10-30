@@ -3,7 +3,7 @@
 
 Vagrant.configure(2) do |config|
 
-  config.vm.box = "local-centos/7"
+  config.vm.box = "packstack-centos/7"
 
   machines = {
     'node1.example.dd'    => { :ip => '10.1.0.10'},
