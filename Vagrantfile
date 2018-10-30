@@ -3,13 +3,14 @@
 
 Vagrant.configure(2) do |config|
 
-  config.vm.box = "centos/7"
+  config.vm.box = "local-centos/7"
 
   machines = {
     'node1.example.dd'    => { :ip => '10.1.0.10'},
    #'node2.example.dd'    => { :ip =>'10.1.0.12'},
   }
 
+  config.ssh.insert_key = false
   config.hostmanager.enabled = true
   config.hostmanager.manage_host = true
   config.hostmanager.manage_guest = true
@@ -29,7 +30,6 @@ Vagrant.configure(2) do |config|
         v.cpus = "2"
         v.customize "post-boot", ["controlvm", :id, "nicpromisc2", "allow-all"]
       end
-
     end
   end
 end
