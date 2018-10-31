@@ -2,17 +2,10 @@
 set -e
 set -x
 
-## Set up example network & VM in the admin project ###
+# Source network variables
+. /vagrant/network_variables
 
-export PACKSTACK_IP_ADDR=10.1.0.10
-export PACKSTACK_IP_GW=10.1.0.1
-export PUBLIC_SUBNET=/24
-export PUBLIC_NETWORK=172.16.0.0$PUBLIC_SUBNET
-export PUBLIC_GW=172.16.0.1
-export PUBLIC_ADDR_BEGIN=172.16.0.128
-export PUBLIC_ADDR_END=172.16.0.160
-export PRIVATE_SUBNET=/24
-export PRIVATE_NETWORK=10.10.10.0$PRIVATE_SUBNET
+## Set up example network & VM in the admin project ###
 
 # Set up basic public and private networks
 . /root/keystonerc_admin
