@@ -35,5 +35,3 @@ ONBOOT=yes
 EOF
 
 service network restart
-systemctl restart neutron-openvswitch-agent neutron-server
-

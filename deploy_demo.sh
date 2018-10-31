@@ -15,7 +15,7 @@ export PRIVATE_SUBNET=/24
 export PRIVATE_NETWORK=10.10.10.0$PRIVATE_SUBNET
 
 # Set up basic public and private networks
-. keystonerc_admin
+. /root/keystonerc_admin
 neutron net-create public_network --provider:network_type flat \
   --provider:physical_network extnet --router:external --shared
 neutron subnet-create --name public_subnet --enable_dhcp=False \
@@ -78,4 +78,3 @@ iptables -t nat -A POSTROUTING -s $PUBLIC_NETWORK -j MASQUERADE
 # Show server and floating IPs
 openstack server list
 openstack floating ip list
-
