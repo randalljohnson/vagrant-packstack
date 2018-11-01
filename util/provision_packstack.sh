@@ -3,7 +3,7 @@ set -e
 set -x
 
 # Source network variables
-. /vagrant/network_variables
+. /vagrant/util/network_variables
 
 # Configures networking daemons & installs packstack binaries
 sudo systemctl disable firewalld

@@ -2,7 +2,7 @@
 set -e
 set -x
 
-. /root/keystonerc_admin
+. /vagrant/util/keystonerc_admin
 openstack user list
 openstack domain list
 openstack project list

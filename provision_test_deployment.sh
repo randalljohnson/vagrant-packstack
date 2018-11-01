@@ -1,3 +1,3 @@
 #!/bin/bash
 set -e
-vagrant ssh -c 'sudo /vagrant/test_deployment.sh'
+vagrant ssh -c 'sudo /vagrant/util/test_deployment.sh'

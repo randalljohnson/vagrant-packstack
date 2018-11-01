@@ -3,7 +3,7 @@ set -e
 set -x
 
 # Source network variables
-. /vagrant/network_variables
+. /vagrant/util/network_variables
 
 ## Set up example network & VM in the admin project ###
 

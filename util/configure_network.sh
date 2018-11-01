@@ -3,7 +3,7 @@ set -e
 set -x
 
 # Source network variables
-. /vagrant/network_variables
+. /vagrant/util/network_variables
 
 # Configures br-ex interface for bridging of Openstack public network with external host network
 
