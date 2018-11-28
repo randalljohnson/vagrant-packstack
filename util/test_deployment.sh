@@ -51,13 +51,13 @@ openstack server add floating ip $SERVER_NAME $FLOATING_IP
 
 
 # Add routing table entry to bridge root namespace and Packstack router namespace
-#ip addr add $PUBLIC_GW dev br-ex
-#ip route add $PUBLIC_NETWORK dev br-ex
+ip addr add $PUBLIC_GW dev br-ex
+ip route add $PUBLIC_NETWORK dev br-ex
 
 # Point default GW in root namespace to to router
 export ROUTER_NAMESPACE=$(ip netns | grep qrouter | cut -d' ' -f1)
-#ip netns exec $ROUTER_NAMESPACE ip route del default || :
-#ip netns exec $ROUTER_NAMESPACE ip route add default via $PUBLIC_GW
+ip netns exec $ROUTER_NAMESPACE ip route del default || :
+ip netns exec $ROUTER_NAMESPACE ip route add default via $PUBLIC_GW
 
 # Enable forwarding on VM kernel
 sysctl -w net.ipv4.ip_forward=1
