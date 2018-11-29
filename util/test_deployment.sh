@@ -69,5 +69,4 @@ iptables -t filter -D FORWARD 3
 iptables -t nat -A POSTROUTING -s $PUBLIC_NETWORK -j MASQUERADE
 
 # Show server and floating IPs
-openstack server list
-openstack floating ip list
+echo "Floating IP: $FLOATING_IP"
