@@ -1,2 +1,2 @@
 #!/bin/bash
-/Library/Application\ Support/VirtualBox/LaunchDaemons/VirtualBoxStartup.sh restart 
+sudo "/Library/Application Support/VirtualBox/LaunchDaemons/VirtualBoxStartup.sh" restart
