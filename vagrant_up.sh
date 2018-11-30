@@ -1,8 +1,7 @@
 #!/bin/bash
 set -e
 
-# Remove existing instance and start a new one
-vagrant destroy -f
+# Start new instance
 vagrant up
 
 # Configure networking and restart network daemons
