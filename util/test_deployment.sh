@@ -4,11 +4,20 @@ set -x
 
 # Source network variables
 . /vagrant/util/network_variables
+. /root/keystonerc_admin
 
 ## Set up example network & VM in the admin project ###
 
+# Enforce idempotency by checking if networks already exist
+if $(openstack network list | grep private_network > /dev/null) ; then
+  echo "Network 'private_network' already exists"
+  exit 0
+elif $(openstack network list | grep public_network > /dev/null) ; then
+  echo "Network 'public_network' already exists"
+  exit 0
+fi
+
 # Set up basic public and private networks
-. /root/keystonerc_admin
 neutron net-create public_network --provider:network_type flat \
   --provider:physical_network extnet --router:external --shared
 neutron subnet-create --name public_subnet --enable_dhcp=False \
