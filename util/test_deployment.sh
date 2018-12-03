@@ -10,11 +10,11 @@ set -x
 
 # Enforce idempotency by checking if networks already exist
 if $(openstack network list | grep private_network > /dev/null) ; then
-  echo "Network 'private_network' already exists"
-  exit 0
+  echo "Network 'private_network' exists, running undo script first"
+  /vagrant/util/undo_test_deployment.sh
 elif $(openstack network list | grep public_network > /dev/null) ; then
-  echo "Network 'public_network' already exists"
-  exit 0
+  echo "Network 'public_network' exists, running undo script first"
+  /vagrant/util/undo_test_deployment.sh
 fi
 
 # Set up basic public and private networks
@@ -60,8 +60,8 @@ openstack server add floating ip $SERVER_NAME $FLOATING_IP
 
 
 # Add routing table entry to bridge root namespace and Packstack router namespace
-ip addr add $PUBLIC_GW dev br-ex
-ip route add $PUBLIC_NETWORK dev br-ex
+ip addr add $PUBLIC_GW dev br-ex || : # Ignore errors if it exists
+ip route add $PUBLIC_NETWORK dev br-ex || :
 
 # Point default GW in root namespace to to router
 export ROUTER_NAMESPACE=$(ip netns | grep qrouter | cut -d' ' -f1)
@@ -72,7 +72,7 @@ ip netns exec $ROUTER_NAMESPACE ip route add default via $PUBLIC_GW
 sysctl -w net.ipv4.ip_forward=1
 
 # Disable 'REJECT' iptables target that was configured by Packstack installer
-iptables -t filter -D FORWARD 3
+iptables -t filter -D FORWARD 3 || :
 
 # Enable iptables masquerade rule to allow egress traffic
 iptables -t nat -A POSTROUTING -s $PUBLIC_NETWORK -j MASQUERADE
