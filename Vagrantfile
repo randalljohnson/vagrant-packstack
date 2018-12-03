@@ -26,7 +26,7 @@ Vagrant.configure(2) do |config|
       machine.vm.synced_folder '.', '/vagrant'
 
       machine.vm.provider "virtualbox" do | v |
-        v.memory = "5120"
+        v.memory = "6144"
         v.cpus = "2"
         v.customize "post-boot", ["controlvm", :id, "nicpromisc2", "allow-all"]
       end
